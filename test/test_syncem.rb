@@ -58,6 +58,15 @@ class SyncEmTest < Minitest::Test
     end
   end
 
+  def test_respond_to
+    Dir.mktmpdir do |dir|
+      path = File.join(dir, 'f.txt')
+      acc = SyncEm.new(Account.new(path))
+      assert(acc.respond_to?(:balance))
+      assert(acc.respond_to?(:add))
+    end
+  end
+
   def test_multiple_threads
     Dir.mktmpdir do |dir|
       path = File.join(dir, 'f.txt')
