@@ -6,6 +6,8 @@ Layout/EmptyLineAfterGuardClause:
   Enabled: false
 Layout/MultilineMethodCallIndentation:
   Enabled: false
+Layout/EndOfLine:
+  EnforcedStyle: lf
 Metrics/AbcSize:
   Max: 65
 Metrics/BlockLength:
