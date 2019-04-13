@@ -44,6 +44,10 @@ class SyncEmTest < Minitest::Test
       now = File.exist?(@file) ? IO.read(@file).to_i : 0
       IO.write(@file, (now + amount).to_s)
     end
+
+    def read
+      yield balance
+    end
   end
 
   def test_wraps_simple_object
@@ -64,6 +68,20 @@ class SyncEmTest < Minitest::Test
       acc = SyncEm.new(Account.new(path))
       assert(acc.respond_to?(:balance))
       assert(acc.respond_to?(:add))
+    end
+  end
+
+  def test_works_with_block
+    Dir.mktmpdir do |dir|
+      path = File.join(dir, 'f.txt')
+      acc = SyncEm.new(Account.new(path))
+      acc.add(50)
+      before = 0
+      acc.read do |b|
+        assert_equal(50, b)
+        before = b
+      end
+      assert_equal(50, before)
     end
   end
 

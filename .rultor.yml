@@ -6,7 +6,7 @@ install: |-
 release:
   script: |-
     bundle install
-    rake
+    bundle exec rake
     rm -rf *.gem
     sed -i "s/0\.0\.0/${tag}/g" syncem.gemspec
     git add syncem.gemspec

@@ -40,7 +40,9 @@ class SyncEm
   def method_missing(*args)
     @mutex.synchronize do
       if @origin.respond_to?(args[0])
-        @origin.send(*args)
+        @origin.send(*args) do |*a|
+          yield(*a) if block_given?
+        end
       else
         super
       end
