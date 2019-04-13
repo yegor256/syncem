@@ -31,7 +31,7 @@ Gem::Specification.new do |s|
   s.rubygems_version = '2.3.3'
   s.required_ruby_version = '>=2.3'
   s.name = 'syncem'
-  s.version = '0.0.0'
+  s.version = '0.1.1'
   s.license = 'MIT'
   s.summary = 'Thread-safe decorator of Ruby objects'
   s.description = 'Sometimes you have an object that is not thread-safe,
