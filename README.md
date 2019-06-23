@@ -18,7 +18,8 @@ but you need to make sure each of its methods is thread-safe, because they
 deal with some resources, like files or databases and you want them to
 manage those resources sequentially. This small gem will help you achieve
 exactly that without any re-design of the objects you already have. Just
-decorate them with `SyncEm` decorator and that is it.
+decorate them with `SyncEm` [thread-safe decorator](https://www.yegor256.com/2017/01/17/synchronized-decorators.html)
+and that is it.
 
 First, install it:
 
