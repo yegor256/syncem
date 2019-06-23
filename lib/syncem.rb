@@ -32,6 +32,8 @@
 # Copyright:: Copyright (c) 2018-2019 Yegor Bugayenko
 # License:: MIT
 class SyncEm
+  undef_method :send
+
   def initialize(origin)
     @origin = origin
     @mutex = Mutex.new
@@ -40,7 +42,7 @@ class SyncEm
   def method_missing(*args)
     @mutex.synchronize do
       if @origin.respond_to?(args[0])
-        @origin.send(*args) do |*a|
+        @origin.__send__(*args) do |*a|
           yield(*a) if block_given?
         end
       else

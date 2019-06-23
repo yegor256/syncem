@@ -71,6 +71,15 @@ class SyncEmTest < Minitest::Test
     end
   end
 
+  def test_works_with_send_method
+    obj = Object.new
+    def obj.send(first, second)
+      first + second
+    end
+    synced = SyncEm.new(obj)
+    assert_equal(5, synced.send(2, 3))
+  end
+
   def test_works_with_block
     Dir.mktmpdir do |dir|
       path = File.join(dir, 'f.txt')
