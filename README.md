@@ -13,6 +13,9 @@
 [![Hits-of-Code](https://hitsofcode.com/github/yegor256/syncem)](https://hitsofcode.com/view/github/yegor256/syncem)
 [![License](https://img.shields.io/badge/license-MIT-green.svg)](https://github.com/yegor256/syncem/blob/master/LICENSE.txt)
 
+Read this blog post:
+[_SyncEm: Thread-Safe Decorators in Ruby_](https://www.yegor256.com/2019/06/26/syncem.html).
+
 Sometimes you have an object that is not thread-safe,
 but you need to make sure each of its methods is thread-safe, because they
 deal with some resources, like files or databases and you want them to
