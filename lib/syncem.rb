@@ -41,9 +41,18 @@ class SyncEm
 
   def method_missing(*args)
     @mutex.synchronize do
-      if @origin.respond_to?(args[0])
-        @origin.__send__(*args) do |*a|
-          yield(*a) if block_given?
+      mtd = args.shift
+      if @origin.respond_to?(mtd)
+        params = @origin.method(mtd).parameters
+        reqs = params.count { |p| p[0] == :req }
+        if params.any? { |p| p[0] == :key } && args.size > reqs
+          @origin.__send__(mtd, *args[0...-1], **args.last) do |*a|
+            yield(*a) if block_given?
+          end
+        else
+          @origin.__send__(mtd, *args) do |*a|
+            yield(*a) if block_given?
+          end
         end
       else
         super

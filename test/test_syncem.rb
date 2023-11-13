@@ -73,11 +73,23 @@ class SyncEmTest < Minitest::Test
 
   def test_works_with_send_method
     obj = Object.new
-    def obj.send(first, second)
-      first + second
+    def obj.send(_first, second)
+      second
     end
     synced = SyncEm.new(obj)
-    assert_equal(5, synced.send(2, 3))
+    assert_equal(3, synced.send(2, 3))
+    assert_equal({ y: 2 }, synced.send({ x: 1 }, { y: 2 }))
+  end
+
+  def test_works_with_optional_arguments
+    obj = Object.new
+    def obj.foo(first, _second, ext1: 'a', ext2: 'b')
+      first + ext1 + ext2
+    end
+    synced = SyncEm.new(obj)
+    assert_equal('.xy', synced.foo('.', {}, ext1: 'x', ext2: 'y'))
+    assert_equal('fzb', synced.foo('f', {}, ext1: 'z'))
+    assert_equal('-ab', synced.foo('-', {}))
   end
 
   def test_works_with_block
