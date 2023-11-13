@@ -92,6 +92,16 @@ class SyncEmTest < Minitest::Test
     assert_equal('-ab', synced.foo('-', {}))
   end
 
+  def test_works_with_default_value
+    obj = Object.new
+    def obj.foo(first, second = 42)
+      first + second
+    end
+    synced = SyncEm.new(obj)
+    assert_equal(15, synced.foo(7, 8))
+    assert_equal(43, synced.foo(1))
+  end
+
   def test_works_with_block
     Dir.mktmpdir do |dir|
       path = File.join(dir, 'f.txt')
