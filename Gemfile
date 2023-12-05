@@ -24,7 +24,7 @@ source 'https://rubygems.org'
 gemspec
 gem 'minitest', '5.20.0', require: false
 gem 'rake', '13.1.0', require: false
-gem 'rdoc', '6.6.0', require: false
+gem 'rdoc', '6.6.1', require: false
 gem 'rubocop', '1.58.0', require: false
 gem 'rubocop-rspec', '2.25.0', require: false
 gem 'threads', '0.4.0', require: false
