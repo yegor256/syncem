@@ -3,7 +3,6 @@ AllCops:
   TargetRubyVersion: 2.3
   SuggestExtensions: false
   NewCops: enable
-
 Layout/EndOfLine:
   EnforcedStyle: lf
 Metrics/MethodLength:
@@ -18,3 +17,7 @@ Metrics/PerceivedComplexity:
   Max: 10
 Metrics/AbcSize:
   Max: 25
+required:
+  - rubocop-rake
+  - rubocop-minitest
+  - rubocop-performance
