@@ -17,7 +17,7 @@ Metrics/PerceivedComplexity:
   Max: 10
 Metrics/AbcSize:
   Max: 25
-required:
+require:
   - rubocop-rake
   - rubocop-minitest
   - rubocop-performance
