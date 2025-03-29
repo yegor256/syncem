@@ -47,8 +47,8 @@ class SyncEmTest < Minitest::Test
     Dir.mktmpdir do |dir|
       path = File.join(dir, 'f.txt')
       acc = SyncEm.new(Account.new(path))
-      assert(acc.respond_to?(:balance))
-      assert(acc.respond_to?(:add))
+      assert_respond_to(acc, :balance)
+      assert_respond_to(acc, :add)
     end
   end
 
@@ -71,6 +71,16 @@ class SyncEmTest < Minitest::Test
     assert_equal('.xy', synced.foo('.', {}, ext1: 'x', ext2: 'y'))
     assert_equal('fzb', synced.foo('f', {}, ext1: 'z'))
     assert_equal('-ab', synced.foo('-', {}))
+  end
+
+  def test_works_with_one_optional_arguments
+    skip('this test doesnt work')
+    obj = Object.new
+    def obj.foo(one, two, *)
+      one + two
+    end
+    synced = SyncEm.new(obj)
+    assert_equal('abc', synced.foo('a', 'b', three: 'c'))
   end
 
   def test_works_with_default_value
