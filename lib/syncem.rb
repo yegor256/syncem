@@ -45,7 +45,7 @@ class SyncEm
     @origin.respond_to?(method, include_private)
   end
 
-  def respond_to_missing?(_method, _include_private = false)
-    true
+  def respond_to_missing?(method, include_private = false)
+    @origin.respond_to?(method, include_private) || super
   end
 end

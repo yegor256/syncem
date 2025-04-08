@@ -19,7 +19,7 @@ exactly that without any re-design of the objects you already have. Just
 decorate them with SyncEm decorator and that is it.'
   s.authors = ['Yegor Bugayenko']
   s.email = 'yegor256@gmail.com'
-  s.homepage = 'http://github.com/yegor256/syncem'
+  s.homepage = 'https://github.com/yegor256/syncem'
   s.files = `git ls-files`.split($RS)
   s.rdoc_options = ['--charset=UTF-8']
   s.extra_rdoc_files = ['README.md']

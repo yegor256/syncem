@@ -73,14 +73,14 @@ class SyncEmTest < Minitest::Test
     assert_equal('-ab', synced.foo('-', {}))
   end
 
-  def test_works_with_one_optional_arguments
-    skip('this test doesnt work')
+  def test_works_with_splat_arguments
     obj = Object.new
-    def obj.foo(one, two, *)
-      one + two
+    def obj.foo(one, two, *rest)
+      one + two + (rest.empty? ? '' : rest.first.to_s)
     end
     synced = SyncEm.new(obj)
-    assert_equal('abc', synced.foo('a', 'b', three: 'c'))
+    assert_equal('ab', synced.foo('a', 'b'))
+    assert_equal('abc', synced.foo('a', 'b', 'c'))
   end
 
   def test_works_with_default_value
