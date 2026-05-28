@@ -10,6 +10,7 @@ plugins:
   - rubocop-rake
   - rubocop-minitest
   - rubocop-performance
+  - rubocop-elegant
 Minitest/EmptyLineBeforeAssertionMethods:
   Enabled: false
 Layout/EndOfLine:
@@ -26,4 +27,20 @@ Metrics/PerceivedComplexity:
   Max: 10
 Metrics/AbcSize:
   Max: 25
+Elegant/ClassInModule:
+  Exclude:
+    - 'lib/**/*'
+    - '**/test_*.rb'
+    - '**/*Test.rb'
+Elegant/GoodMethodName:
+  AllowedNames:
+    - 'method_missing'
+    - 'respond_to?'
+    - 'respond_to_missing?'
+Elegant/NoRedundantVariable:
+  Exclude:
+    - 'test/**/*'
+Style/Send:
+  Exclude:
+    - 'test/**/*'
 require: []

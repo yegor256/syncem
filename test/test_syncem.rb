@@ -18,16 +18,16 @@ class SyncEmTest < Minitest::Test
     end
 
     def balance
-      File.exist?(@file) ? File.read(@file).to_i : 0
+      File.exist?(@file) ? Integer(File.read(@file)) : 0
     end
 
     def add(amount)
-      now = File.exist?(@file) ? File.read(@file).to_i : 0
+      now = File.exist?(@file) ? Integer(File.read(@file)) : 0
       File.write(@file, (now + amount).to_s)
     end
 
     def read
-      yield balance
+      yield(balance)
     end
   end
 
