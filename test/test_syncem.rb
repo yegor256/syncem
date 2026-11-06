@@ -3,6 +3,11 @@
 # SPDX-FileCopyrightText: Copyright (c) 2019 Yegor Bugayenko
 # SPDX-License-Identifier: MIT
 
+require 'simplecov'
+SimpleCov.start do
+  add_filter '/test/'
+end
+
 require 'minitest/autorun'
 require 'threads'
 require_relative '../lib/syncem'
