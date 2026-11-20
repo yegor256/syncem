@@ -78,6 +78,33 @@ class SyncEmTest < Minitest::Test
     assert_equal('-ab', synced.foo('-', {}))
   end
 
+  def test_works_with_required_keyword
+    obj = Object.new
+    def obj.foo(key:)
+      key
+    end
+    assert_equal(42, SyncEm.new(obj).foo(key: 42))
+  end
+
+  def test_works_with_optional_and_keyword
+    obj = Object.new
+    def obj.pad(str, num = 1, sep: ' ')
+      str + (sep * num)
+    end
+    synced = SyncEm.new(obj)
+    assert_equal('x   ', synced.pad('x', 3))
+    assert_equal('x--', synced.pad('x', 2, sep: '-'))
+    assert_equal('x ', synced.pad('x'))
+  end
+
+  def test_works_with_positional_hash
+    obj = Object.new
+    def obj.foo(first, opts = {}, ext: 'e')
+      first + opts.keys.join + ext
+    end
+    assert_equal('.ae', SyncEm.new(obj).foo('.', { a: 1 }))
+  end
+
   def test_works_with_splat_arguments
     obj = Object.new
     def obj.foo(one, two, *rest)
