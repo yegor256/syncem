@@ -105,6 +105,16 @@ class SyncEmTest < Minitest::Test
     assert_equal('.ae', SyncEm.new(obj).foo('.', { a: 1 }))
   end
 
+  def test_forwards_arbitrary_keywords
+    obj = Object.new
+    def obj.foo(first, **opts)
+      first + opts.map { |k, v| "#{k}=#{v}" }.join(',')
+    end
+    synced = SyncEm.new(obj)
+    assert_equal('-a=1,b=2', synced.foo('-', a: 1, b: 2))
+    assert_equal('.', synced.foo('.'))
+  end
+
   def test_works_with_splat_arguments
     obj = Object.new
     def obj.foo(one, two, *rest)

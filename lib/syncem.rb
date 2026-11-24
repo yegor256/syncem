@@ -20,10 +20,10 @@ class SyncEm
     @mutex = Mutex.new
   end
 
-  def method_missing(mtd, *args, **kwargs)
+  def method_missing(mtd, *args)
     @mutex.synchronize do
       if @origin.respond_to?(mtd)
-        @origin.__send__(mtd, *args, **kwargs) do |*a|
+        @origin.__send__(mtd, *args) do |*a|
           yield(*a) if block_given?
         end
       else
@@ -31,6 +31,7 @@ class SyncEm
       end
     end
   end
+  ruby2_keywords(:method_missing) if respond_to?(:ruby2_keywords, true)
 
   def respond_to?(method, include_private = false)
     @origin.respond_to?(method, include_private)
